@@ -41,6 +41,13 @@ Go Packages：
 		- 顶级作用域中，非首字母大写的 variables，均为 package scope api，只允许 package 内部访问
 		- 非顶级作用域中，所有 variables 均为 private api，只允许当前文件，当前作用域及子作用域允许访问
 
+	Package 顶级作用域：
+		在顶级作用域中，只允许出现下面几种类型的语句：
+			* `package` 声明语句；
+			* `import` 声明语句；
+			* global variables 定义语句，定义语句中，可进行变量初始化；
+			* 函数定义，比如 init 函数、main 函数等等；
+
 	导出（export）API：
 		- 顶级作用域中，首字母大写的函数、变量、类等值，均为 public api，
 		  只有 public api 可被默认导出
