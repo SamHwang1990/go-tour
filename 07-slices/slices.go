@@ -49,8 +49,8 @@ Slices:
 	值类型，非引用类型：
 		slice 对象属于值类型
 			** 赋值时，会复制新的 slice，而不是使用引用
-			** 将数组作为参数传值时，会复制新的数组，而不是使用引用
-			** 虽然 slice 传递时值传递，但因为 slice 复制后引用的数组还是同一个数组，
+			** 将 slice作为参数传值时，会复制新的 slice，而不是使用引用
+			** 虽然 slice 传递是值传递，但因为 slice 复制后引用的数组还是同一个数组，
 				所以，牵一发动全身，行为上跟引用传递没啥区别
 
 	zero value：
@@ -104,6 +104,8 @@ Slices:
 			** 可指定子 slice 的 cap：max - low
 
 	Slice Operation：
+		* len，获取 slice 长度，使用内置函数：len(slice)
+		* cap，获取 slice 容量，使用内置函数：cap(slice)
 		* getter，使用索引即可访问 slice 中指定位置的值，` slice1[0] `
 			index 最大值为 len(slice) - 1
 		* setter，使用索引来设置 slice 中制定位置的值，` slice1[0] = ... `
