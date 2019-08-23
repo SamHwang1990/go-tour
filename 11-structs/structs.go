@@ -212,19 +212,47 @@ Struct:
 				foo.name == 'foo'
 			```
 
-	struct operation：
-		* 读写：
-			使用 `.`（句点）操作符来对字段值进行读写
-		* sturct comparison：
-			- Struct Comparison: Struct Type 一样，field 的值相等，则 stuct 相等
-			- 若 Struct Type 中含有不可比较的字段类型，则 struct 之间不能进行比较
-			- 虽然结构体内部是一样，甚至是值都是一样的，但只要是不同的 type alias，struct 就不能进行比较
+	struct operation，读写操作：
+		- 使用 `.`（句点）操作符来对字段值进行读写
+		- 若字段是 Pointer 类型时，golang 提供了语法糖来快速读写 Pointer 类型的字段，跳过繁琐的 `*`、`&` 操作符
+			举例：
+			```go
+				type A struct {
+					name   string
+					parent *A
+				}
+
+				a := A{
+					name: "foo",
+				}
+
+				b := A{
+					name:   "bar",
+					parent: &a,
+				}
+			```
+
+			-- 正常的 pointer getter
+				` &(b.parent).name `
+			-- 语法糖的 pointer getter
+				` b.parent.name `
+
+			-- 正常的 pointer setter
+				` &(b.parent).name = "aslkdfj" `
+			-- 语法糖的 pointer setter
+				` b.parent.name = "alkfjakls" `
+
+	sturct comparison：
+		- Struct Comparison: Struct Type 一样，field 的值相等，则 stuct 相等
+		- 若 Struct Type 中含有不可比较的字段类型，则 struct 之间不能进行比较
+		- 虽然结构体内部是一样，甚至是值都是一样的，但只要是不同的 type alias，struct 就不能进行比较
 
 	Struct Type 访问性、exported fields
 		* Struct Type 定义在 package-scope 中，该类型的访问性遵循包变量的访问规则
 		* 当字段名以大写字母开头时，该字段可被其他 package 访问
 
 	参考文章：
+		- [structures-in-go](https://medium.com/rungo/structures-in-go-76377cc106a2)
 		- [golang spec#Struct_types](https://golang.org/ref/spec#Struct_types)
 		- [golang reflect#StructTag](https://golang.org/pkg/reflect/#StructTag)
 
@@ -234,8 +262,30 @@ package main
 
 import "fmt"
 
+func sugerGetterAndSetterOfPointerField() {
+	type A struct {
+		name   string
+		parent *A
+	}
+
+	a := A{
+		name: "foo",
+	}
+
+	b := A{
+		name:   "bar",
+		parent: &a,
+	}
+
+	fmt.Println(b.parent.name)
+
+	b.parent.name = "ajdfklajds"
+	fmt.Println(a.name)
+	fmt.Println(b.parent.name)
+}
+
 func main() {
-	fmt.Println("")
+	sugerGetterAndSetterOfPointerField()
 
 	// 定义 struct type 结构体，并设置类型名为 Person
 	type Person struct {
