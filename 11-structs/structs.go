@@ -13,6 +13,8 @@ Struct:
 			** struct zero value
 			** struct 字段值初始化
 		* struct 字段读写
+		* struct comparison
+		* 字段访问权限控制
 
 	在 Struct Type 中，字段间没有任何联系，也没有所谓的上下文
 
@@ -217,6 +219,10 @@ Struct:
 			- Struct Comparison: Struct Type 一样，field 的值相等，则 stuct 相等
 			- 若 Struct Type 中含有不可比较的字段类型，则 struct 之间不能进行比较
 			- 虽然结构体内部是一样，甚至是值都是一样的，但只要是不同的 type alias，struct 就不能进行比较
+
+	Struct Type 访问性、exported fields
+		* Struct Type 定义在 package-scope 中，该类型的访问性遵循包变量的访问规则
+		* 当字段名以大写字母开头时，该字段可被其他 package 访问
 
 	参考文章：
 		- [golang spec#Struct_types](https://golang.org/ref/spec#Struct_types)
