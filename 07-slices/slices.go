@@ -60,6 +60,7 @@ Slices:
 		参考：下面的 sliceInitialize 函数
 
 		** slice 字面量的语法与 array 字面量语法类似，差别在于不需要声明数量，golang 会自动生成对应的数组
+			` slice1 := []int{1,2,3} `
 
 		** 只声明不初始化，使用 zero-value
 			`var slice1 []int 	// slice1 use zero-value: nil`
