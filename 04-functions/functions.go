@@ -74,7 +74,7 @@ Functions
 
 					** before: the function returns to its caller
 						函数在父函数将返回值返回给调用者之前调用
-						*** 若父函数声明了命名返回值，则 defer 函数可以通过指针引用的方式修改到父函数返回值
+						*** 若父函数声明了命名返回值，则 defer 函数也可以通过变量赋值来修改函数返回值
 							```go
 							// f returns 42
 							func f() (result int) {

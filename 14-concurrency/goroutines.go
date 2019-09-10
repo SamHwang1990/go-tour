@@ -1,0 +1,5 @@
+/*
+Goroutines
+*/
+
+package main
